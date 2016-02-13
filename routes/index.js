@@ -24,7 +24,7 @@ router.post('/register', function(req, res){
 		username: req.body.username 
 	}), req.body.password, function(err, user){
 		if(err) 
-			return res.render('register', {info: 'Sorry. That username already exists. Try again.'});
+			return res.render('register', {info: 'Sorry. That username already exists. Try again. <pre>' + err + '</pre>'});
 		
 		passport.authenticate('local')(req, res, function() {
 			res.redirect('/');

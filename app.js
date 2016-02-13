@@ -15,6 +15,9 @@ var userRoutes  = require('./routes/user');
 var quoteRoutes = require('./routes/quote');
 var User        = require('./models/user');
 
+var port = process.env.PORT || config.port;
+var db   = process.env.MONGOLAB_URI || config.db;
+
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
@@ -46,7 +49,7 @@ app.use(require('method-override')(function(req,res){
 }));
 
 // Database
-mongoose.connect(config.db);
+mongoose.connect(db);
 
 // Passport
 app.use(passport.initialize());
@@ -66,5 +69,5 @@ app.use('/user/', userRoutes);
 app.use('/quotes/', quoteRoutes);
 
 // Start
-app.listen(config.port);
-console.log('App running on port ' + config.port);
+app.listen(port);
+console.log('App running on port ' + port);
