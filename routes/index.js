@@ -21,7 +21,7 @@ router.get('/register', function(req, res){
 router.post('/register', function(req, res){
 	User.register(new User({ 
 		email : req.body.email,
-		username: req.body.username 
+		username: req.body.username
 	}), req.body.password, function(err, user){
 		if(err) 
 			return res.render('register', {info: 'Sorry. That username already exists. Try again. <pre>' + err + '</pre>'});
