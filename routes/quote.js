@@ -24,6 +24,8 @@ router.post('/new', function(req, res){
 // read
 router.get('/:id', function(req, res) {
 	Quote.findById(req.params.id,function(err, quote) {
+		if(!quote)
+			return res.sendStatus(404);
 		User.findById(quote.author, function(err, author) {
 			res.send(quote + "\n\n" + author + "\n\n" + quote.votes());
 		});
