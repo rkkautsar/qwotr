@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+	<h1>Hello!</h1>
+
+	{% if logged %}
+		<p>You're logged in as {{logged.username}}. <a href="/user">View all user</a>. <a href="/logout">Log out</a>.</p>
+		<div><img src="https://avatars.io/gravatar/{{logged.email}}/large" alt="Your gravatar picture"></div>
+		<pre>{{logged | escape}}</pre>
+	{% else %}
+		<p>You're not logged in, yet! <a href="/login">Log in</a> or <a href="/register">Register</a>.</p>
+	{% endif %}
+{% endblock %}

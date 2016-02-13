@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+	{% if logged %}
+		<p>You're already logged in.</p>
+	{% endif %}
+
+	<form method="post">
+		<fieldset>
+			<input type="text" placeholder="Username" name="username" required>
+			<input type="email" placeholder="Email" name="email" required>
+			<input type="password" placeholder="Password" name="password" required>
+		</fieldset>
+		<button type="submit">Register</button>
+		<a href="/">Cancel</a>
+	</form>
+
+	{% if info %}
+		<h4>{{ info }}</h4>
+	{% endif %}
+{% endblock %}
