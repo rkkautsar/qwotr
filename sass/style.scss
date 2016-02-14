@@ -21,16 +21,32 @@ body > .container {
 
 .positive {
 	color: $positive;
+	opacity: .3;
+	&:hover, &.active {
+		opacity: 1;
+	}
 }
 
 .negative {
 	color: $negative;
+	opacity: .3;
+	&:hover, &.active {
+		opacity: 1;
+	}
 }
 
 .flex {
 	display: flex;
 }
 
+.flex-column {
+	flex-direction: column;
+}
+
 .flex-between {
 	justify-content: space-between;
+}
+
+.flex-end {
+	align-self: flex-end;
 }

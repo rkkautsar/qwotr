@@ -1,23 +1,40 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}	
-	<div class="row">
+	<div class="row masonry">
 	{% for quote in quotes %}
 		<div class="col s12 m6">
-			<div class="card ">
-				<div class="card-content flex flex-between">
-					<p>{{quote.text}}</p>
-					<a href="/user/{{quote.author.username}}" class="secondary-content">{{quote.author.username}}</a>
+			<div class="card">
+				<div class="card-content flex flex-column flex-between">
+					<p>{{quote.text}}{% if quote.source %}, <em>{{quote.source}}</em>{% endif %}</p>
+					<a href="/user/{{quote.author.username}}" class="secondary-content flex-end">{{quote.author.username}}</a>
 				</div>
 				<div class="card-action flex flex-between">
-					<a href="/quotes/{{quote.id}}/upvote"><i class="material-icons positive">thumb_up</i></a>
+					<a href="/quotes/{{quote.id}}/upvote"><i class="material-icons positive {% if logged and quote.upvoted(logged) %}active{% endif %}">thumb_up</i></a>
 					<span>({{quote.upvotes()-quote.downvotes()}})</span>
-					<a href="/quotes/{{quote.id}}/downvote"><i class="material-icons negative">thumb_down</i></a>
+					<a href="/quotes/{{quote.id}}/downvote"><i class="material-icons negative {% if logged and quote.downvoted(logged)%}active{% endif %}">thumb_down</i></a>
 				</div>
+				{% if logged and quote.author.id == logged.id %}
+				<div class="card-action flex flex-between blue-grey darken-2">
+					<a href="/quotes/{{quote.id}}/edit"><i class="material-icons">edit</i></a>
+					<a href="/quotes/{{quote.id}}/delete"><i class="material-icons negative active">delete</i></a>
+				</div>
+				{% endif %}
 			</div>
 		</div>
 	{% else %}
 		No quotes, yet.
 	{% endfor %}
 	</div>
+{% endblock %}
+
+{% block tail %}
+	<script>
+		$(function(){
+			$('.masonry').masonry({
+				itemSelector: '.col',
+				percentPosition: true
+			});
+		});
+	</script>
 {% endblock %}

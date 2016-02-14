@@ -12,17 +12,32 @@ router.get('/', function(req, res){
 	});
 });
 
+router.get('/new', function(req, res){
+	if(!req.user)
+		return res.redirect('/login?ref=' + req.originalUrl);
+
+	res.render('quotes/new', {
+		logged: req.user
+	});
+});
+
+
 // create
 router.post('/new', function(req, res){
+	if(!req.user)
+		return res.redirect('/login?ref=' + req.originalUrl);
+
 	var quote = new Quote({
 		text: req.body.quote_text,
+		source: req.body.source,
 		author: req.user
 	});
 
 	quote.save();
 
-	res.redirect('/quote/');
+	res.redirect(req.baseUrl);
 });
+
 
 // read
 router.get('/:id', function(req, res) {
@@ -37,7 +52,10 @@ router.get('/:id', function(req, res) {
 
 // update
 router.put('/:id/edit', function(req, res) {
-	Quote.update({_id: req.params.id},{text: req.body.quote_text}, function(err) {
+	if(!req.user)
+		return res.redirect('/login?ref=' + req.originalUrl);
+
+	Quote.update({_id: req.params.id},{text: req.body.quote_text, source: req.body.source}, function(err) {
 		if(err)
 			console.log(err);
 		else
@@ -60,8 +78,10 @@ router.get('/:id/upvote', function(req, res) {
 		return res.redirect('/login?ref=' + req.originalUrl);
 
 	Quote.findById(req.params.id, function(err, quote) {
-		quote.upvote(req.user._id);
-		console.log(quote);
+		if(quote.voted(req.user._id))
+			quote.unvote(req.user._id);
+		else
+			quote.upvote(req.user._id);
 		quote.save();
 		res.redirect(req.baseUrl);
 	});
@@ -73,7 +93,10 @@ router.get('/:id/downvote', function(req, res) {
 		return res.redirect('/login?ref=' + req.originalUrl);
 
 	Quote.findById(req.params.id, function(err, quote) {
-		quote.downvote(req.user._id);
+		if(quote.voted(req.user._id))
+			quote.unvote(req.user._id);
+		else
+			quote.downvote(req.user._id);
 		quote.save();
 		res.redirect(req.baseUrl);
 	});
