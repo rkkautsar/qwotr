@@ -1,0 +1,15 @@
+<nav>
+	<div class="nav-wrapper">
+		<a href="/" class="brand-logo">qwotr</a>
+		<ul class="right">
+			<li><a href="/quotes"><i class="material-icons">chat</i></a></li>
+			<li><a href="/user"><i class="material-icons">recent_actors</i></a></li>
+		{% if logged %}
+			<li><a href="/user/me"><i class="material-icons">account_box</i></a></li>
+			<li><a href="/logout"><i class="material-icons">launch</i></a></li>
+		{% else %}
+			<li><a href="/login"><i class="material-icons">exit_to_app</i></a></li>
+		{% endif %}
+		</ul>
+	</div>
+</nav>

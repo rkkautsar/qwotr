@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	
 	<title>{{title}}</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+
 </head>
 <body>
-	{% block content %}
+	
+	{% include '../includes/navbar.html' ignore missing %}
 
-	{% endblock %}
+	<div class="container">
+		{% block content %}
+
+		{% endblock %}
+	</div>
+
+	{% include '../includes/footer.html' ignore missing %}
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+	
 </body>
 </html>

@@ -4,8 +4,11 @@ var Quote   = require('../models/quote');
 var User    = require('../models/user');
 
 router.get('/', function(req, res){
-	Quote.find({}, function(err, quotes) {
-		res.send(quotes);
+	Quote.find({}).populate('author').exec(function(err, quotes) {
+		res.render('quotes/index', {
+			quotes: quotes,
+			logged: req.user
+		});
 	});
 });
 
@@ -18,7 +21,7 @@ router.post('/new', function(req, res){
 
 	quote.save();
 
-	res.redirect('/quote/')
+	res.redirect('/quote/');
 });
 
 // read
@@ -40,7 +43,7 @@ router.put('/:id/edit', function(req, res) {
 		else
 			res.redirect(req.baseUrl);
 	});
-})
+});
 
 // delete
 router.delete('/:id/delete', function(req, res) {
@@ -58,6 +61,7 @@ router.get('/:id/upvote', function(req, res) {
 
 	Quote.findById(req.params.id, function(err, quote) {
 		quote.upvote(req.user._id);
+		console.log(quote);
 		quote.save();
 		res.redirect(req.baseUrl);
 	});

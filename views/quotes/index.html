@@ -1,0 +1,23 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}	
+	<div class="row">
+	{% for quote in quotes %}
+		<div class="col s12 m6">
+			<div class="card ">
+				<div class="card-content flex flex-between">
+					<p>{{quote.text}}</p>
+					<a href="/user/{{quote.author.username}}" class="secondary-content">{{quote.author.username}}</a>
+				</div>
+				<div class="card-action flex flex-between">
+					<a href="/quotes/{{quote.id}}/upvote"><i class="material-icons positive">thumb_up</i></a>
+					<span>({{quote.upvotes()-quote.downvotes()}})</span>
+					<a href="/quotes/{{quote.id}}/downvote"><i class="material-icons negative">thumb_down</i></a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		No quotes, yet.
+	{% endfor %}
+	</div>
+{% endblock %}

@@ -1,12 +1,13 @@
-var express        = require('express');
-var mongoose       = require('mongoose');
-var bodyParser     = require('body-parser');
-var cookieParser   = require('cookie-parser');
-var morgan         = require('morgan');
-var nunjucks       = require('express-nunjucks');
-var passport       = require('passport');
-var LocalStrategy  = require('passport-local').Strategy;
-var path           = require('path');
+var express       = require('express');
+var mongoose      = require('mongoose');
+var bodyParser    = require('body-parser');
+var cookieParser  = require('cookie-parser');
+var morgan        = require('morgan');
+var nunjucks      = require('express-nunjucks');
+var sass          = require('node-sass-middleware');
+var passport      = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var path          = require('path');
 
 var app         = express();
 var config      = require('./config');
@@ -31,6 +32,16 @@ nunjucks.setup({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(
+    sass({
+        src: __dirname + '/sass', 
+        dest: __dirname + '/public/css',
+        prefix:  '/css', 
+        outputStyle: 'compressed'
+     })
+); 
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('express-session')({
