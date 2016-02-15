@@ -24,7 +24,11 @@ router.get('/:uname', function(req, res) {
 		if(!user)
 			return res.sendStatus(404);
 		Quote.find({author: user._id}, function(err, quotes) {
-			res.send(quotes);
+			res.render('user/profile', {
+				user: user,
+				quotes: quotes,
+				logged: req.user
+			});
 		});
 	});
 });

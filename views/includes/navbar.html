@@ -1,7 +1,8 @@
 <nav>
 	<div class="nav-wrapper">
 		<a href="/" class="brand-logo">qwotr</a>
-		<ul class="right">
+		<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+		<ul class="right hide-on-med-and-down">
 			<li><a href="/quotes"><i class="material-icons">chat</i></a></li>
 			<li><a href="/user"><i class="material-icons">recent_actors</i></a></li>
 		{% if logged %}
@@ -10,7 +11,20 @@
 			<li><a href="/logout"><i class="material-icons">launch</i></a></li>
 		{% else %}
 			<li><a href="/login"><i class="material-icons">exit_to_app</i></a></li>
+			<li><a href="/register"><i class="material-icons">account_box</i></a></li>
 		{% endif %}
 		</ul>
+		<ul class="side-nav" id="mobile-menu">
+	        <li><a href="/quotes">Quotes</a></li>
+			<li><a href="/user">All Users</a></li>
+		{% if logged %}
+			<li><a href="/quotes/new">New Quotes</a></li>
+			<li><a href="/user/me">My Profile</a></li>
+			<li><a href="/logout">Log Out</a></li>
+		{% else %}
+			<li><a href="/login">Log In</a></li>
+			<li><a href="/register">Register</a></li>
+		{% endif %}
+      </ul>
 	</div>
 </nav>

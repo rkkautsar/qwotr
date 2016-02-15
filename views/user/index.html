@@ -3,13 +3,13 @@
 {% block content %}	
 	<ul class="collection">
 	{% for user in users %}
-			<li class="collection-item-avatar valign-wrapper">
-				<img src="http://avatars.io/gravatar/{{user.email}}/small" alt="{{user.username}}'s avatar" class="circle">
-				<a class="title" href="/user/{{user.username}}">{{ user.username }}</a>
-				{% if user.id == logged.id -%}
-				<span class="secondary-content">(You!)</span>
-				{%- endif %}
-			</li>
+		<li class="collection-item-avatar valign-wrapper">
+			<img src="http://avatars.io/gravatar/{{user.email}}/small" alt="{{user.username}}'s avatar" class="circle">
+			<a class="title" href="/user/{{user.username}}">{{ user.username }}</a>
+			{% if user.id == logged.id -%}
+			<span class="secondary-content">(You!)</span>
+			{%- endif %}
+		</li>
 	{% else %}
 		<li class="collection-item">Empty</li>
 	{% endfor %}

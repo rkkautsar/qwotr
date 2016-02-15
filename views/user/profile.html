@@ -1,0 +1,55 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}	
+
+	<div class="row">
+		<div class="col s12 m6 offset-m3">
+			<div class="card blue-grey white-text">
+				<div class="card-image">
+					<img src="http://avatars.io/gravatar/{{user.email}}/large" alt="{{user.username}}'s profile picture">
+					<span class="card-title">{{user.username}}</span>
+				</div>
+				<div class="card-content">
+					<p><a href="mailto:{{user.email}}">{{user.email}}</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row masonry">
+	{% for quote in quotes %}
+		<div class="col s12 m6">
+			<div class="card">
+				<div class="card-content flex flex-column flex-between">
+					<p>{{quote.text}}{% if quote.source %}, <em>{{quote.source}}</em>{% endif %}</p>
+					<a href="/user/{{quote.author.username}}" class="secondary-content flex-end">{{quote.author.username}}</a>
+				</div>
+				<div class="card-action flex flex-between">
+					<a href="/quotes/{{quote.id}}/upvote"><i class="material-icons positive {% if logged and quote.upvoted(logged) %}active{% endif %}">thumb_up</i></a>
+					<span>({{quote.upvotes()-quote.downvotes()}})</span>
+					<a href="/quotes/{{quote.id}}/downvote"><i class="material-icons negative {% if logged and quote.downvoted(logged)%}active{% endif %}">thumb_down</i></a>
+				</div>
+				{% if logged and quote.author.id == logged.id %}
+				<div class="card-action flex flex-between blue-grey darken-2">
+					<a href="/quotes/{{quote.id}}/edit"><i class="material-icons">edit</i></a>
+					<a href="#deleteModal" class="modal-trigger" data-quote-id="{{quote.id}}"><i class="material-icons negative active">delete</i></a>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	{% else %}
+		No quotes, yet.
+	{% endfor %}
+	</div>
+{% endblock %}
+
+{% block tail %}
+	<script>
+		$(function(){
+			$('.masonry').masonry({
+				itemSelector: '.col',
+				percentPosition: true
+			});
+		});
+	</script>
+{% endblock %}
