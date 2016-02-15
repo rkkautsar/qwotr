@@ -1,17 +1,21 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}	
-	<h3>Create a new quotes</h3>
+	<h3>{{header}}</h3>
 	<form method="post">
 		<div class="input-field">
-			<textarea class="materialize-textarea active" name="quote_text" id="quote_text" required></textarea>
+			<textarea class="materialize-textarea active" name="quote_text" id="quote_text" required>{{quote.text}}</textarea>
 			<label for="quote_text">Quote Text</label>
 		</div>
 
 		<div class="input-field">
-			<input type="text" id="source" name="source">
+			<input type="text" id="source" name="source" value="{{quote.source}}">
 			<label for="source">Source (optional)</label>
 		</div>
+
+		{% if quote %}
+			<input type="hidden" name="_method" value="put">
+		{% endif %}
 
 		<button class="btn btn-large waves-effect waves-light right" type="submit" name="action">Submit
 			<i class="material-icons right">send</i>

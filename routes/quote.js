@@ -16,9 +16,27 @@ router.get('/new', function(req, res){
 	if(!req.user)
 		return res.redirect('/login?ref=' + req.originalUrl);
 
-	res.render('quotes/new', {
+	res.render('quotes/edit', {
+		message: "Create new quotes",
 		logged: req.user
 	});
+});
+
+router.get('/:id/edit', function(req, res){
+	if(!req.user)
+		return res.redirect('/login?ref=' + req.originalUrl);
+
+	Quote.findById(req.params.id).populate('author').exec(function(err, quote){
+		if(req.user.id != quote.author.id)
+			return res.sendStatus(403);
+
+		res.render('quotes/edit', {
+			message: "Edit your quotes",
+			quote: quote,
+			logged: req.user
+		})
+	});
+
 });
 
 
