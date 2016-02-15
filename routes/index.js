@@ -19,12 +19,17 @@ router.get('/register', function(req, res){
 });
 
 router.post('/register', function(req, res){
+	var pass = req.body.password,
+		confirm = req.body.confirm;
+	if(pass != confirm)
+		return res.render('register', {info: 'The passwords does not match.'});
+
 	User.register(new User({ 
 		email : req.body.email,
 		username: req.body.username
 	}), req.body.password, function(err, user){
 		if(err) 
-			return res.render('register', {info: 'Sorry. That username already exists. Try again. <pre>' + err + '</pre>'});
+			return res.render('register', {info: 'Sorry. That username already exists. Try again.'});
 		
 		passport.authenticate('local')(req, res, function() {
 			res.redirect('/');

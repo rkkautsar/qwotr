@@ -3,14 +3,27 @@
 {% block content %}
 	{% if logged %}
 		<p>You're already logged in.</p>
+	{% else %}
+		<div class="card">
+			<form method="post" class="card-content">
+				<div class="row">
+					<div class="input-field col s12 m6">
+						<input type="text" name="username" id="username">
+						<label for="username">Username or Email</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<input type="password" name="password" id="password">
+						<label for="password">Password</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field right">
+						<button type="submit" class="waves-effect waves-light btn">Log In</button>
+						<a href="/" class="waves-effect waves-teal btn-flat">Cancel</a>
+					</div>
+				</div>
+			</form>
+		</div>
 	{% endif %}
 
-	<form method="post">
-		<fieldset>
-			<input type="text" placeholder="Username" name="username">
-			<input type="password" placeholder="Password" name="password">
-		</fieldset>
-		<button type="submit">Log In</button>
-		<a href="/">Cancel</a>
-	</form>
 {% endblock %}

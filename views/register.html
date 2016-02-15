@@ -3,19 +3,46 @@
 {% block content %}
 	{% if logged %}
 		<p>You're already logged in.</p>
+	{% else %}
+		<div class="card">
+			<form method="post" class="card-content">
+				<div class="row">
+					<div class="input-field col s12 m6">
+						<input type="text" name="username" id="username" required>
+						<label for="username">Username</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<input type="text" name="email" id="email" required>
+						<label for="email">Email</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6">
+						<input type="password" name="password" id="password" required>
+						<label for="password">Password</label>
+					</div>
+					<div class="input-field col s12 m6">
+						<input type="password" name="confirm" id="confirm" required>
+						<label for="confirm">Confirm Password</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field right">
+						<button type="submit" class="waves-effect waves-light btn">Sign Up</button>
+						<a href="/" class="waves-effect waves-teal btn-flat">Cancel</a>
+					</div>
+				</div>
+			</form>
+		</div>
 	{% endif %}
+{% endblock %}
 
-	<form method="post">
-		<fieldset>
-			<input type="text" placeholder="Username" name="username" required>
-			<input type="email" placeholder="Email" name="email" required>
-			<input type="password" placeholder="Password" name="password" required>
-		</fieldset>
-		<button type="submit">Register</button>
-		<a href="/">Cancel</a>
-	</form>
-
+{% block tail %}
 	{% if info %}
-		<h4>{{ info }}</h4>
+		<script>
+			$(function(){
+				Materialize.toast('{{info}}', 3000);
+			});
+		</script>
 	{% endif %}
 {% endblock %}
