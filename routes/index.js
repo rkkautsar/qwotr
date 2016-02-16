@@ -15,7 +15,10 @@ router.get('/', function(req, res){
 // Login and Register
 
 router.get('/register', function(req, res){
-	res.render('register', { logged: req.user });
+	res.render('register', { 
+		logged: req.user,
+		title: 'Register' 
+	});
 });
 
 router.post('/register', function(req, res){
@@ -29,7 +32,10 @@ router.post('/register', function(req, res){
 		username: req.body.username
 	}), req.body.password, function(err, user){
 		if(err) 
-			return res.render('register', {info: 'Sorry. That username already exists. Try again.'});
+			return res.render('register', {
+				info: 'Sorry. That username already exists. Try again.',
+				title: 'Register'
+			});
 		
 		passport.authenticate('local')(req, res, function() {
 			res.redirect('/');
@@ -38,7 +44,10 @@ router.post('/register', function(req, res){
 });
 
 router.get('/login', function(req, res){
-	res.render('login', { logged: req.user });
+	res.render('login', { 
+		logged: req.user,
+		title: 'Log In'
+	});
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res){

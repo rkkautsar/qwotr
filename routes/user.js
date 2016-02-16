@@ -7,7 +7,8 @@ router.get('/', function(req, res){
 	User.find({}, function(err, users) {
 		res.render('user/index', {
 			users: users,
-			logged: req.user
+			logged: req.user,
+			title: "Users"
 		});
 	});
 });
@@ -27,7 +28,8 @@ router.get('/:uname', function(req, res) {
 			res.render('user/profile', {
 				user: user,
 				quotes: quotes,
-				logged: req.user
+				logged: req.user,
+				title: user.username + "'s Profile"
 			});
 		});
 	});

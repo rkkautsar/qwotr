@@ -7,7 +7,8 @@ router.get('/', function(req, res){
 	Quote.find({}).populate('author').exec(function(err, quotes) {
 		res.render('quotes/index', {
 			quotes: quotes,
-			logged: req.user
+			logged: req.user,
+			title: 'Quotes'
 		});
 	});
 });
@@ -18,7 +19,8 @@ router.get('/new', function(req, res){
 
 	res.render('quotes/edit', {
 		message: "Create new quotes",
-		logged: req.user
+		logged: req.user,
+		title: "Create new quotes"
 	});
 });
 
@@ -33,8 +35,9 @@ router.get('/:id/edit', function(req, res){
 		res.render('quotes/edit', {
 			message: "Edit your quotes",
 			quote: quote,
-			logged: req.user
-		})
+			logged: req.user,
+			title: "Edit your quotes"
+		});
 	});
 
 });
@@ -48,7 +51,7 @@ router.post('/new', function(req, res){
 	var quote = new Quote({
 		text: req.body.quote_text,
 		source: req.body.source,
-		author: req.user
+		author: req.user,
 	});
 
 	quote.save();
