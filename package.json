@@ -20,7 +20,7 @@
     "express-nunjucks": "^0.9.6",
     "express-session": "^1.13.0",
     "method-override": "^2.3.5",
-    "mongoose": "^4.4.3",
+    "mongoose": "^5.12.3",
     "mongoose-voting": "^0.3.0",
     "morgan": "^1.6.1",
     "node-sass-middleware": "^0.9.7",
